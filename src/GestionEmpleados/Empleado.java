@@ -1,9 +1,9 @@
 package GestionEmpleados;
 
 abstract public class Empleado implements Impuesto{
-    protected int id;
-    protected String nombre;
-    protected double sueldoBase;
+    private int id;
+    private String nombre;
+    private double sueldoBase;
     abstract double calcularSueldo();
 
     public Empleado(int id, String nombre, double sueldoBase) {
@@ -18,4 +18,27 @@ abstract public class Empleado implements Impuesto{
         return this.calcularSueldo() * 0.21;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getSueldoBase() {
+        return sueldoBase;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setSueldoBase(double sueldoBase) {
+        this.sueldoBase = sueldoBase;
+    }
 }

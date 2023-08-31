@@ -9,14 +9,14 @@ public class EmpleadoAsalariado extends Empleado {
     @Override
     public String toString() {
         return "EmpleadoAsalariado{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", sueldoBase=" + sueldoBase +
+                "id=" + this.getId() +
+                ", nombre='" + this.getNombre() + '\'' +
+                ", sueldoBase=" + this.getSueldoBase() +
                 '}';
     }
 
     @Override
     double calcularSueldo() {
-        return sueldoBase;
+        return this.getSueldoBase();
     }
 }

@@ -1,11 +1,17 @@
 package GestionEmpleados;
 
 public class EmpleadoPorHoras extends Empleado  {
-
-    int horasTrabajadas;
-
+    private int horasTrabajadas;
     public EmpleadoPorHoras(int id, String nombre, double sueldoBase, int horasTrabajadas) {
         super(id, nombre, sueldoBase);
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    public int getHorasTrabajadas() {
+        return horasTrabajadas;
+    }
+
+    public void setHorasTrabajadas(int horasTrabajadas) {
         this.horasTrabajadas = horasTrabajadas;
     }
 
@@ -13,14 +19,14 @@ public class EmpleadoPorHoras extends Empleado  {
     public String toString() {
         return "EmpleadoPorHoras{" +
 
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", sueldoBase=" + sueldoBase +
-                ", horasTrabajadas=" + horasTrabajadas + '}';
+                "id=" + this.getId() +
+                ", nombre='" + this.getNombre() + '\'' +
+                ", sueldoBase=" + this.getSueldoBase() +
+                ", horasTrabajadas=" +  + this.getHorasTrabajadas();
     }
 
     @Override
     double calcularSueldo() {
-        return this.sueldoBase * horasTrabajadas;
+        return this.getSueldoBase() * this.getHorasTrabajadas();
     }
 }
