@@ -6,13 +6,13 @@ abstract public class Empleado implements Impuesto{
     private double sueldoBase;
     abstract double calcularSueldo();
 
-    public Empleado(int id, String nombre, double sueldoBase) {
+    public Empleado(int id, String nombre, double sueldoBase) { //Constructor de la clase abstracta Empleado
         this.id = id;
         this.nombre = nombre;
         this.sueldoBase = sueldoBase;
     }
 
-    public abstract String toString();
+    public abstract String toString(); //Método abstracto toString
     @Override
     public double calcularImpuesto(){
         return this.calcularSueldo() * 0.21;
