@@ -26,7 +26,7 @@ public class GestorEmpleados
                 opcion = input.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Opción inválida. Ingrese un número válido.");
-                input.nextLine();
+                continuar();
                 continue;
             }
             switch (opcion){
