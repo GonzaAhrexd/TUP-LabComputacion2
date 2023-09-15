@@ -5,6 +5,7 @@ import java.io.FileReader;
 public class LeeDatos {
 
     public static void main(String[] args) {
+
         try {
             FileReader entrada = new FileReader("src\\Archivos\\texto.txt");
 
