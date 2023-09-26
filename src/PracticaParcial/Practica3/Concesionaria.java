@@ -55,7 +55,7 @@ public class Concesionaria implements Serializable{
     @Override
     public void guardar(ArrayList<Vehiculo> listaVehiculos){
         try {
-            FileOutputStream fileOut = new FileOutputStream("src\\PracticaParcial\\ListaVehiculos");
+            FileOutputStream fileOut = new FileOutputStream("src\\PracticaParcial\\Practica3\\ListaVehiculos");
             ObjectOutputStream fluxOut = new ObjectOutputStream(fileOut);
             fluxOut.writeObject(listaVehiculos);
             fluxOut.close();
@@ -67,7 +67,7 @@ public class Concesionaria implements Serializable{
     public ArrayList<Vehiculo> cargar(){
         ArrayList<Vehiculo> listaVehiculo;
         try{
-            FileInputStream fileIn = new FileInputStream("src\\PracticaParcial\\ListaVehiculos");
+            FileInputStream fileIn = new FileInputStream("src\\PracticaParcial\\Practica3\\ListaVehiculos");
             ObjectInputStream fluxIn = new ObjectInputStream(fileIn);
             listaVehiculo = (ArrayList<Vehiculo>) fluxIn.readObject();
             fluxIn.close();
