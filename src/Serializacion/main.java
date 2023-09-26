@@ -9,6 +9,7 @@ public class main {
 
         String addNota;
 
+
         System.out.println("Ingrese lo que quiere agregar a las notas: ");
         addNota = input.nextLine();
 
@@ -21,7 +22,6 @@ public class main {
         System.out.println(notaDeserializada.texto);
 
     }
-
     public static void serializar(Notas nota){
         try {
             FileOutputStream fileOut = new FileOutputStream("src\\Serializacion\\Nota");
