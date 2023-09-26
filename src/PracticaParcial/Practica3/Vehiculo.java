@@ -1,6 +1,6 @@
 package PracticaParcial.Practica3;
 
-public abstract class Vehiculo {
+public abstract class Vehiculo implements java.io.Serializable{
     private String marca;
     private String modelo;
     private double precio;

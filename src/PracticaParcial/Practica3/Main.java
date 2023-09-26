@@ -78,6 +78,9 @@ public class Main {
                     listaConcesionaria.setListaVehiculos(listaConcesionaria.cargar());
                     break;
 
+                case  7:
+                    break;
+
             }
         }
 
