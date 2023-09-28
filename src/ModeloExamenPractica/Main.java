@@ -40,6 +40,7 @@ public class Main {
                     break;
                 case 5:
                     gestionHabitaciones.setListaHabitaciones(gestionHabitaciones.cargar());
+                    System.out.println(gestionHabitaciones.cargar().get(0).getListaHuespedes()[0].getNombre());
                     break;
                 case 6:
                     break;

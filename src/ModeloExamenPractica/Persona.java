@@ -1,6 +1,6 @@
 package ModeloExamenPractica;
 
-public abstract class Persona {
+public abstract class Persona implements java.io.Serializable{
     private String nombre;
     private String apellido;
     private int edad;
