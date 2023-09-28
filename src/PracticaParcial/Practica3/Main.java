@@ -14,7 +14,7 @@ public class Main {
         String modelo;
         double precio;
 
-        while (true) {
+        while (opcion !=  7) {
             System.out.println("1. Agregar vehículos ");
             System.out.println("2. Editar vehículos");
             System.out.println("3. Eliminar vehículos");
