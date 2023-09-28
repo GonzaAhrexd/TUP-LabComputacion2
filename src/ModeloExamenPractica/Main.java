@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
-        GestionarHabitaciones gestionHabitaciones = new GestionarHabitaciones();
+        GestionarHabitaciones gestionHabitaciones = new GestionarHabitaciones(true);
         int opcion = 0;
         while (opcion != 6) {
             System.out.println("1. Ver la lista de habitaciones ");
@@ -36,8 +36,10 @@ public class Main {
                     gestionHabitaciones.eliminarReserva();
                     break;
                 case 4:
+                    gestionHabitaciones.guardarDatos(gestionHabitaciones.getListaHabitaciones());
                     break;
                 case 5:
+                    gestionHabitaciones.setListaHabitaciones(gestionHabitaciones.cargar());
                     break;
                 case 6:
                     break;

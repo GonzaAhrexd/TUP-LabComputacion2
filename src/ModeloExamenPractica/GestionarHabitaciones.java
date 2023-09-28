@@ -2,12 +2,13 @@ package ModeloExamenPractica;
 
 import PracticaParcial.Practica3.Vehiculo;
 
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.Scanner;
-class GestionarHabitaciones {
+class GestionarHabitaciones implements java.io.Serializable {
     public static Scanner input = new Scanner(System.in);
     private ArrayList<Habitaciones> listaHabitaciones = new ArrayList<Habitaciones>();
 
@@ -19,12 +20,24 @@ class GestionarHabitaciones {
     Habitaciones habitacion6 =  new Habitaciones(4,4,"Libre");
 
     public GestionarHabitaciones() {
+
+    }
+
+    public GestionarHabitaciones(boolean importar) {
         this.listaHabitaciones.add(habitacion1);
         this.listaHabitaciones.add(habitacion2);
         this.listaHabitaciones.add(habitacion3);
         this.listaHabitaciones.add(habitacion4);
         this.listaHabitaciones.add(habitacion5);
         this.listaHabitaciones.add(habitacion6);
+    }
+
+    public ArrayList<Habitaciones> getListaHabitaciones() {
+        return listaHabitaciones;
+    }
+
+    public void setListaHabitaciones(ArrayList<Habitaciones> listaHabitaciones) {
+        this.listaHabitaciones = listaHabitaciones;
     }
 
     public void reservar(){
@@ -84,19 +97,38 @@ class GestionarHabitaciones {
         String huespedes = "";
 
         for (Habitaciones habitacion: listaHabitaciones) {
-  /*          if(habitacion.getListaHuespedes() != null){
-                for (Huespedes huesped: habitacion.getListaHuespedes()) {
-                    huespedes = huesped.getNombre() + " " + huesped.getApellido() + ",";
-                }
-            };
-            System.out.println(i + "\t" + habitacion.getCantidad_de_camas() + "\t" + habitacion.getCapacidad_de_huespedes() + "\t" + habitacion.getEstado() +  habitacion.mostrarInterfazRelevante());
-*/
+
             System.out.println(i + "\t\t " + habitacion.mostrarInformacionRelevante());
             i++;
         }
 
     }
+    
+     public void guardarDatos(ArrayList<Habitaciones> listaHabitaciones){
+             try {
+                 FileOutputStream fileOut = new FileOutputStream("src" + File.separator + "ModeloExamenPractica"  + File.separator + "Reservas" );
+                 ObjectOutputStream fluxOut = new ObjectOutputStream(fileOut);
+                 fluxOut.writeObject(listaHabitaciones);
+                 fluxOut.close();
+             }catch (IOException e){
+                 e.printStackTrace();
+             }
+         }
 
+    public ArrayList<Habitaciones> cargar(){
+        ArrayList<Habitaciones> listaHabitaciones;
+        try{
+            FileInputStream fileIn = new FileInputStream("src" + File.separator + "ModeloExamenPractica"  + File.separator + "Reservas");
+            ObjectInputStream fluxIn = new ObjectInputStream(fileIn);
+            listaHabitaciones = (ArrayList<Habitaciones>) fluxIn.readObject();
+            fluxIn.close();
+            return listaHabitaciones;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 }
 

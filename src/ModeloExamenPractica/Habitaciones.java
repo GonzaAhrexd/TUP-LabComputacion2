@@ -2,11 +2,15 @@ package ModeloExamenPractica;
 
 import java.util.Arrays;
 
-class Habitaciones implements MostrarInformacion {
+class Habitaciones implements MostrarInformacion, java.io.Serializable {
     private int cantidad_de_camas;
     private int capacidad_de_huespedes;
     private String estado;
     private Huespedes[] listaHuespedes;
+
+    public Habitaciones() {
+
+    }
 
     public Habitaciones(int cantidad_de_camas, int capacidad_de_huespedes, String estado) {
         this.cantidad_de_camas = cantidad_de_camas;
