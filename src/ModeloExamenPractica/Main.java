@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+
+    
     public static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
 
@@ -28,6 +30,7 @@ public class Main {
             e.printStackTrace();
         }
 
+        
         System.out.println(nombreHotel);
         GestionarHabitaciones gestionHabitaciones = new GestionarHabitaciones(true);
         int opcion = 0;
