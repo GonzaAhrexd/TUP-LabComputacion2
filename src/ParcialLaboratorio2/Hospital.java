@@ -14,7 +14,7 @@ class Main {
         char letra = ' ';
         String datosDeContacto = "";
         try {
-            FileReader entrada = new FileReader("src" + File.separator + "ParcialLaboratorio2" + File.separator + "datos.txt" );
+            FileReader entrada = new FileReader("datos.txt" );
 
             caracter =  entrada.read();
             letra = (char)caracter;
@@ -369,7 +369,7 @@ class Paciente extends Persona implements Informacion, java.io.Serializable{
     
      public void guardarPacientes(ArrayList<Paciente> listaPacientes){
              try {
-                 FileOutputStream fileOut = new FileOutputStream("src" + File.separator + "ParcialLaboratorio2" + File.separator + "InfoPacientes.dat");
+                 FileOutputStream fileOut = new FileOutputStream("InfoPacientes.dat");
                  ObjectOutputStream fluxOut = new ObjectOutputStream(fileOut);
                  fluxOut.writeObject(listaPacientes);
                  fluxOut.close();
@@ -381,7 +381,7 @@ class Paciente extends Persona implements Informacion, java.io.Serializable{
           public ArrayList<Paciente> cargar(){
                   ArrayList<Paciente> listaPaciente;
                   try{
-                      FileInputStream fileIn = new FileInputStream("src" + File.separator + "ParcialLaboratorio2" + File.separator + "InfoPacientes.dat");
+                      FileInputStream fileIn = new FileInputStream("InfoPacientes.dat");
                       ObjectInputStream fluxIn = new ObjectInputStream(fileIn);
                       listaPaciente = (ArrayList<Paciente>) fluxIn.readObject();
                       fluxIn.close();
