@@ -1,12 +1,13 @@
 package ModeloExamenPractica;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class Habitaciones implements MostrarInformacion, java.io.Serializable {
     private int cantidad_de_camas;
     private int capacidad_de_huespedes;
     private String estado;
-    private Huespedes[] listaHuespedes;
+    private ArrayList<Huespedes> listaHuespedes = new ArrayList<Huespedes>();
 
     public Habitaciones() {
 
@@ -16,9 +17,8 @@ class Habitaciones implements MostrarInformacion, java.io.Serializable {
         this.cantidad_de_camas = cantidad_de_camas;
         this.capacidad_de_huespedes = capacidad_de_huespedes;
         this.estado = estado;
-        this.listaHuespedes = null;
     }
-    public Habitaciones(int cantidad_de_camas, int capacidad_de_huespedes, String estado, Huespedes[] listaHuespedes) {
+    public Habitaciones(int cantidad_de_camas, int capacidad_de_huespedes, String estado,ArrayList<Huespedes> listaHuespedes) {
         this.cantidad_de_camas = cantidad_de_camas;
         this.capacidad_de_huespedes = capacidad_de_huespedes;
         this.estado = estado;
@@ -52,11 +52,11 @@ class Habitaciones implements MostrarInformacion, java.io.Serializable {
         this.estado = estado;
     }
 
-    public Huespedes[] getListaHuespedes() {
+    public ArrayList<Huespedes> getListaHuespedes() {
         return listaHuespedes;
     }
 
-    public void setListaHuespedes(Huespedes[] listaHuespedes) {
+    public void setListaHuespedes(ArrayList<Huespedes> listaHuespedes) {
         this.listaHuespedes = listaHuespedes;
     }
 
@@ -66,11 +66,12 @@ class Habitaciones implements MostrarInformacion, java.io.Serializable {
 
         if(listaHuespedes !=null) {
             for (Huespedes huesped : listaHuespedes) {
-                nombreApellidoHuespedes += huesped.getNombre() + huesped.getApellido() + "-";
+                nombreApellidoHuespedes += "*"  + huesped.getApellido() + "," + huesped.getNombre() + " " ;
 
             }
         }
-       return this.cantidad_de_camas + "\t\t  " + this.capacidad_de_huespedes + "\t\t\t" + this.estado + " \t\t" + nombreApellidoHuespedes;
+
+       return this.cantidad_de_camas + "\t\t  " + this.capacidad_de_huespedes + "\t\t\t" + this.estado + " \t" + nombreApellidoHuespedes;
 
     }
 }

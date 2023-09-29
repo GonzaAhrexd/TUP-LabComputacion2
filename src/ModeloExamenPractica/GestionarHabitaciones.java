@@ -7,6 +7,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 class GestionarHabitaciones implements java.io.Serializable {
     public static Scanner input = new Scanner(System.in);
@@ -43,43 +44,51 @@ class GestionarHabitaciones implements java.io.Serializable {
     public void reservar(){
         int cantidadHuespedes;
         int indice;
-        Huespedes[] listaHuespedes;
+        ArrayList<Huespedes> listaHuespedes = new ArrayList<Huespedes>();
 
-        System.out.println("Ingrese el id de la habitación a reservar: ");
-        indice = input.nextInt();
-        input.nextLine();
-        System.out.println("Cuantos huespedes van a ocupar la habitación? ");
-        cantidadHuespedes = input.nextInt();
+        try{
+            System.out.println("Ingrese el número de la habitación a reservar: ");
+            indice = input.nextInt();
+            input.nextLine();
+            System.out.println("Cuantos huespedes van a ocupar la habitación? ");
+            cantidadHuespedes = input.nextInt();
 
-        listaHuespedes = new Huespedes[cantidadHuespedes];
-        input.nextLine();
+            input.nextLine();
 
-        if(cantidadHuespedes <= this.listaHabitaciones.get(indice).getCapacidad_de_huespedes()){
+            if(cantidadHuespedes <= this.listaHabitaciones.get(indice).getCapacidad_de_huespedes()){
 
-            for (int i = 0; i < cantidadHuespedes ; i++) {
-                Huespedes huesped;
-                String nombre, apellido;
-                int edad, dni;
+                for (int i = 0; i < cantidadHuespedes ; i++) {
+                    Huespedes huesped;
+                    String nombre, apellido;
+                    int edad, dni;
 
-                System.out.println("Ingrese el nombre del huesped: ");
-                nombre = input.nextLine();
-                System.out.println("Ingrese el apellido del huesped: ");
-                apellido = input.nextLine();
+                    System.out.println("Ingrese el nombre del huesped: ");
+                    nombre = input.nextLine();
+                    System.out.println("Ingrese el apellido del huesped: ");
+                    apellido = input.nextLine();
 
-                System.out.println("Ingrese la edad del huesped: ");
-                edad = input.nextInt();
-                input.nextLine();
+                    System.out.println("Ingrese la edad del huesped: ");
+                    edad = input.nextInt();
+                    input.nextLine();
 
-                System.out.println("Ingrese el dni del huesped: ");
-                dni = input.nextInt();
-                input.nextLine();
+                    System.out.println("Ingrese el dni del huesped: ");
+                    dni = input.nextInt();
+                    input.nextLine();
 
-                huesped = new Huespedes(nombre,apellido,edad,dni);
-                listaHuespedes[i] = huesped;
+                    huesped = new Huespedes(nombre,apellido,edad,dni);
+                    listaHuespedes.add(huesped);
+                }
+                this.listaHabitaciones.get(indice).setListaHuespedes(listaHuespedes);
+                this.listaHabitaciones.get(indice).setEstado("Ocupado");
             }
-            this.listaHabitaciones.get(indice).setListaHuespedes(listaHuespedes);
-            this.listaHabitaciones.get(indice).setEstado("Ocupado");
+        }catch(InputMismatchException e){
+            System.out.println("Se ha ingresado valores no válidos");
+            indice = -1;
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("La habitación elegida no existe");
         }
+
+
     }
 
     public void eliminarReserva(){
@@ -103,7 +112,8 @@ class GestionarHabitaciones implements java.io.Serializable {
         }
 
     }
-    
+
+
      public void guardarDatos(ArrayList<Habitaciones> listaHabitaciones){
              try {
                  FileOutputStream fileOut = new FileOutputStream("src" + File.separator + "ModeloExamenPractica"  + File.separator + "Reservas" );

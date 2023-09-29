@@ -1,11 +1,34 @@
 package ModeloExamenPractica;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
+
+        int caracter;
+        char letra = ' ';
+        String nombreHotel = "";
+        try {
+            FileReader entrada = new FileReader("src" + File.separator + "ModeloExamenPractica" + File.separator +"nombre.txt" );
+
+             caracter =  entrada.read();
+             letra = (char)caracter;
+
+            while(caracter != -1){
+                nombreHotel += letra;
+                caracter = entrada.read();
+                letra = (char)caracter;
+            }
+            entrada.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println(nombreHotel);
         GestionarHabitaciones gestionHabitaciones = new GestionarHabitaciones(true);
         int opcion = 0;
         while (opcion != 6) {
@@ -40,7 +63,7 @@ public class Main {
                     break;
                 case 5:
                     gestionHabitaciones.setListaHabitaciones(gestionHabitaciones.cargar());
-                    System.out.println(gestionHabitaciones.cargar().get(0).getListaHuespedes()[0].getNombre());
+
                     break;
                 case 6:
                     break;
