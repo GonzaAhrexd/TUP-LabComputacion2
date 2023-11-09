@@ -30,7 +30,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        
+
         System.out.println(nombreHotel);
         GestionarHabitaciones gestionHabitaciones = new GestionarHabitaciones(true);
         int opcion = 0;

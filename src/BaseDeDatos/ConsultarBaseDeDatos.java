@@ -32,6 +32,7 @@ public class ConsultarBaseDeDatos {
                 switch (opcion) {
                     case 1:
                         mostrarEstudiantes(conexion);
+                        //GUI.crearGUI(url, usuario, pass, "SELECT * FROM estudiantes");
                         break;
                     case 2:
                         agregarEstudiante(conexion, scanner);

@@ -8,19 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class GUI {
-    public static void main(String[] args) {
+    public static void crearGUI(String jdbcURL, String usuario, String pass, String consultaSQL) {
         // Establecer la conexión a la base de datos
-        String jdbcURL = "jdbc:mysql://localhost:3306/universidad";
-        String usuario = "root";
-        String pass = "";
-
 
         try (Connection connection = DriverManager.getConnection(jdbcURL, usuario, pass)) {
             // Crear una sentencia SQL
             Statement statement = connection.createStatement();
 
             // Ejecutar una consulta SELECT
-            String consultaSQL = "SELECT * FROM estudiantes";
+
             ResultSet resultSet = statement.executeQuery(consultaSQL);
 
             // Crear un modelo de tabla
