@@ -85,49 +85,49 @@ public class Hospital {
     }
 
 
-    private static void agregarPaciente(Connection conexion, Scanner scanner) throws SQLException {
+    public static void agregarPaciente(Connection conexion, Scanner scanner) throws SQLException {
         // Solicita al usuario que ingrese los detalles del estudiante
+        scanner.nextLine();
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
-        System.out.print("Apellido: ");
-        String apellido = scanner.nextLine();
-        System.out.print("Legajo: ");
-        String legajo = scanner.nextLine();
-        System.out.print("DNI: ");
-        String dni = scanner.nextLine();
-        System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
-        String fechaNacimiento = scanner.nextLine();
-        System.out.print("Dirección: ");
-        String direccion = scanner.nextLine();
-        System.out.print("Teléfono: ");
-        String telefono = scanner.nextLine();
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
+        System.out.print("Edad: ");
+        int edad = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Historial  médico: ");
+        String historial_medico = scanner.nextLine();
+        System.out.print("Fecha de ingreso: ");
+        System.out.println("Ingrese el día: ");
+        int dia = scanner.nextInt();
+        System.out.println("Ingrese el mes: ");
+        int mes = scanner.nextInt();
+        System.out.println("Ingrese el año: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Ingrese el id del doctor: ");
+        int doctor = scanner.nextInt();
+        scanner.nextLine();
+        Date fecha_ingreso = new Date(year, mes, dia);
 
         // Consulta SQL para insertar un nuevo estudiante en la base de datos.
         // Utiliza signos de interrogaci�n como marcadores de posici�n para los valores.
-        String consulta = "INSERT INTO estudiantes (nombre, apellido, legajo, dni, fecha_nacimiento, direccion, telefono, email) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String consulta = "INSERT INTO pacientes (nombre, edad, historial_medico , fecha_ingreso,doctor) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         // Crea un PreparedStatement para ejecutar la consulta SQL con valores reales.
         PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
         preparedStatement.setString(1, nombre); // Asigna el valor de nombre al primer marcador de posici�n
-        preparedStatement.setString(2, apellido); // Asigna el valor de apellido al segundo marcador de posici�n
-        preparedStatement.setString(3, legajo); // Asigna el valor de legajo al tercer marcador de posici�n
-        preparedStatement.setString(4, dni); // Asigna el valor de dni al cuarto marcador de posici�n
-        preparedStatement.setString(5, fechaNacimiento); // Asigna el valor de fecha de nacimiento al quinto marcador de posici�n
-        preparedStatement.setString(6, direccion); // Asigna el valor de direcci�n al sexto marcador de posici�n
-        preparedStatement.setString(7, telefono); // Asigna el valor de tel�fono al s�ptimo marcador de posici�n
-        preparedStatement.setString(8, email); // Asigna el valor de email al octavo marcador de posici�n
-
+        preparedStatement.setInt(2, edad); // Asigna el valor de apellido al segundo marcador de posici�n
+        preparedStatement.setString(3, historial_medico); // Asigna el valor de legajo al tercer marcador de posici�n
+        preparedStatement.setDate(4, fecha_ingreso); // Asigna el valor de dni al cuarto marcador de posici�n
+        preparedStatement.setInt(5, doctor); // Asigna el valor de fecha de nacimiento al quinto marcador de posici�n
         // Ejecuta la consulta y obtiene el n�mero de filas afectadas.
         int filasAfectadas = preparedStatement.executeUpdate();
 
         // Verifica si la inserci�n fue exitosa y muestra un mensaje apropiado.
         if (filasAfectadas > 0) {
-            System.out.println("Estudiante agregado exitosamente.");
+            System.out.println("Paciente agregado exitosamente.");
         } else {
-            System.out.println("No se pudo agregar el estudiante.");
+            System.out.println("No se pudo agregar el paciente.");
         }
 
         // Cierra el PreparedStatement para liberar recursos.

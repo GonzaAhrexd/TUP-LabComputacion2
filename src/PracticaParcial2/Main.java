@@ -37,6 +37,7 @@ public class Main {
                         break;
                     case 2:
                         System.out.println("Agregar pacientes");
+                        gestionHospital.agregarPaciente(conexion, input);
                         break;
                     case 3:
                         System.out.println("Listar pacientes");
