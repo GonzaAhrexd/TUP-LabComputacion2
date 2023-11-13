@@ -19,42 +19,43 @@ public class Main {
             while (opcion != 8) {
                 System.out.println("1. Listar pacientes ");
                 System.out.println("2. Agregar paciente ");
-                System.out.println("3. Listar pacientes ");
-                System.out.println("4. Eliminar pacientes ");
-                System.out.println("5. Asignar doctor de cabecera ");
-                System.out.println("6. Filtrar por fecha ");
-                System.out.println("7. Editar pacientes ");
-                System.out.println("8. Salir ");
+                System.out.println("3. Eliminar pacientes ");
+                System.out.println("4. Asignar doctor de cabecera ");
+                System.out.println("5. Filtrar por fecha ");
+                System.out.println("6. Editar pacientes ");
+                System.out.println("7. Salir ");
 
                 System.out.println("Ingrese su opción: ");
                 opcion = input.nextInt();
 
+                input.nextLine();
 
                 switch (opcion) {
                     case 1:
                         System.out.println("Lista de pacientes");
-                       gestionHospital.mostrarListaPacientes(conexion);
+                       gestionHospital.mostrarListaPacientes(conexion, input, false);
                         break;
                     case 2:
                         System.out.println("Agregar pacientes");
                         gestionHospital.agregarPaciente(conexion, input);
                         break;
                     case 3:
-                        System.out.println("Listar pacientes");
+                        System.out.println("Eliminar pacientes");
+                        gestionHospital.mostrarListaPacientes(conexion, input, false);
+                        gestionHospital.eliminarPaciente(conexion, input);
                         break;
                     case 4:
-                        System.out.println("Eliminar pacientes");
+                        System.out.println("Asignación de doctores");
+                        gestionHospital.asignarDoctor(conexion, input);
                         break;
                     case 5:
-                        System.out.println("Asignación de doctores");
+                        System.out.println("Filtrar por fecha");
+                        gestionHospital.mostrarListaPacientes(conexion,input,true);
                         break;
                     case 6:
-                        System.out.println("Filtrar por fecha");
-                        break;
-                    case 7:
                         System.out.println("Editar pacientes");
                         break;
-                    case 8:
+                    case 7:
 
                         break;
                 }

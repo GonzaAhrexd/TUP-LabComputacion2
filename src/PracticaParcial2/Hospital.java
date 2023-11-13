@@ -1,4 +1,5 @@
 package PracticaParcial2;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.sql.*;
 import java.util.ArrayList;
@@ -56,10 +57,43 @@ public class Hospital {
         statementPacientes.close();
     }
 
-    public void mostrarListaPacientes(Connection conexion) throws SQLException {
+    public void mostrarListaPacientes(Connection conexion, Scanner input, boolean filtrarFecha) throws SQLException {
+        String fechaInferior = "", fechaSuperior = "";
+        int dia1 = 0, mes1 = 0, year1= 0, dia2= 0, mes2= 0, year2= 0;
+        if(filtrarFecha){
+            System.out.println("Ingrese la fecha inferior ");
+            System.out.println("Ingrese el día: ");
+            dia1 = input.nextInt();
+            System.out.println("Ingrese el mes: ");
+            mes1 = input.nextInt();
+            System.out.println("Ingrese el año: ");
+            year1 = input.nextInt();
+
+            System.out.println("Ingrese la fecha superior ");
+            System.out.println("Ingrese el día: ");
+            dia2 = input.nextInt();
+            System.out.println("Ingrese el mes: ");
+            mes2 = input.nextInt();
+            System.out.println("Ingrese el año: ");
+            year2 = input.nextInt();
+        }
+
+        ResultSet resultadoPacientes;
         Statement statementPacientes = conexion.createStatement();
-        String consultaPacientes = "SELECT * FROM pacientes";
-        ResultSet resultadoPacientes = statementPacientes.executeQuery(consultaPacientes);
+        if(!filtrarFecha) {
+            resultadoPacientes = statementPacientes.executeQuery("SELECT * FROM pacientes");
+        }else{
+            PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM `pacientes` WHERE `fecha_ingreso` BETWEEN ? AND ? ORDER BY `fecha_ingreso` ASC\n");
+
+            Date fechaInf = new Date(year1-1900,mes1-1,dia1);
+
+            Date fechaSup = new Date(year2-1900,mes2-1,dia2);
+
+            preparedStatement.setDate(1, fechaInf); // Asigna el valor de nombre al primer marcador de posici�n
+            preparedStatement.setDate(2, fechaSup); // Asigna el valor de apellido al segundo marcador de posici�n
+
+            resultadoPacientes = preparedStatement.executeQuery();
+        }
 
 
         System.out.println("ID\tNombre\tEdad\tHistorial médico\tFecha de ingreso\tDoctor");
@@ -133,4 +167,80 @@ public class Hospital {
         // Cierra el PreparedStatement para liberar recursos.
         preparedStatement.close();
     }
+    public static void eliminarPaciente(Connection conexion, Scanner scanner) throws SQLException {
+
+        scanner.nextLine();
+        int id = 0;
+        System.out.println("Ingrese el nombre del paciente a  eliminar: ");
+        String nombre =  scanner.nextLine();
+        String consultaExistencia = "SELECT * FROM pacientes WHERE nombre = ?";
+        PreparedStatement preparedStatementExistencia = conexion.prepareStatement(consultaExistencia);
+        preparedStatementExistencia.setString(1, nombre); // Establece el valor del marcador de posici�n.
+        ResultSet resultadoExistencia = preparedStatementExistencia.executeQuery();
+
+        // Si no se encuentra ning�n estudiante con el ID proporcionado, muestra un mensaje y sale de la funci�n.
+        if (!resultadoExistencia.next()) {
+            System.out.println("El paciente no existe.");
+            preparedStatementExistencia.close();
+            return;
+        }
+
+        // Consulta SQL para eliminar el estudiante de la base de datos.
+        String consulta = "DELETE FROM pacientes WHERE nombre = ?";
+        PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+        preparedStatement.setString(1, nombre); // Establece el valor del marcador de posici�n.
+
+        // Ejecuta la consulta SQL y obtiene el n�mero de filas afectadas.
+        int filasAfectadas = preparedStatement.executeUpdate();
+
+        // Verifica si la eliminaci�n fue exitosa y muestra un mensaje apropiado.
+        if (filasAfectadas > 0) {
+            System.out.println("Paciente eliminado exitosamente.");
+        } else {
+            System.out.println("No se pudo eliminar el paciente.");
+        }
+
+        // Cierra el PreparedStatement para liberar recursos.
+        preparedStatement.close();
+    }
+    public static void asignarDoctor(Connection conexion, Scanner scanner) throws SQLException {
+        System.out.println("Ingrese el id del paciente a asignar doctor: ");
+        int idPaciente = scanner.nextInt();
+
+        String consultaExistencia = "SELECT * FROM pacientes WHERE id = ?";
+        PreparedStatement preparedStatementExistencia = conexion.prepareStatement(consultaExistencia);
+        preparedStatementExistencia.setInt(1, idPaciente); // Establece el valor del marcador de posici�n.
+        ResultSet resultadoExistencia = preparedStatementExistencia.executeQuery();
+
+        // Si no se encuentra ning�n estudiante con el ID proporcionado, muestra un mensaje y sale de la funci�n.
+        if (!resultadoExistencia.next()) {
+            System.out.println("El estudiante no existe.");
+            preparedStatementExistencia.close();
+            return;
+        }
+
+
+        System.out.println("Ingrese el id  del doctor que se  le quiere asignar");
+        int idDoctor  = scanner.nextInt();
+
+        String consulta = "UPDATE pacientes SET doctor = ?  WHERE id = ?";
+        PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+        preparedStatement.setInt(1, idDoctor);
+        preparedStatement.setInt(2, idPaciente);
+
+        int filasAfectadas = preparedStatement.executeUpdate();
+
+        // Verifica si la edici�n fue exitosa y muestra un mensaje apropiado.
+        if (filasAfectadas > 0) {
+            System.out.println("Estudiante editado exitosamente.");
+        } else {
+            System.out.println("No se pudo editar el estudiante.");
+        }
+
+        // Cierra el PreparedStatement para liberar recursos.
+        preparedStatement.close();
+    }
+
+
 }
+
