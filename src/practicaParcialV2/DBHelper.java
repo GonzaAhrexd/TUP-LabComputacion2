@@ -4,6 +4,7 @@ import com.mysql.cj.x.protobuf.MysqlxPrepare;
 
 import java.sql.*;
 
+
 public class DBHelper {
     private static final String url = "jdbc:mysql://localhost:3306/hospital";
     private static final String usuario = "root";

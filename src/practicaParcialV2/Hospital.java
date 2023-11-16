@@ -1,6 +1,9 @@
 package practicaParcialV2;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.Scanner;
 
 public class Hospital {
@@ -12,12 +15,13 @@ public class Hospital {
         DBHelper.ejecutarConsulta(consulta);
     }
 
+
+
     public void listarPacientes() {
         String consulta = "SELECT * FROM `pacientes`";
         ResultSet resultado = DBHelper.ejecutarConsultaConResultado(consulta);
         listarPacientes(resultado);
     }
-
 
     private void listarPacientes(ResultSet resultadoPacientes) {
 
@@ -56,8 +60,54 @@ public class Hospital {
         ResultSet resultado = DBHelper.ejecutarConsultaConResultado(consulta);
         listarPacientes(resultado);
     }
+    public void listarReciente(int idMedico) {
+
+        String consulta = "SELECT * FROM `pacientes` WHERE `doctor` = (SELECT id FROM doctores WHERE id = " + idMedico + ") ORDER BY `fecha_ingreso` DESC LIMIT 1";
+        ResultSet resultado = DBHelper.ejecutarConsultaConResultado(consulta);
+        listarPacientes(resultado);
+
+    }
+    public void listarPacientesPorEdad(int edad) {
+        String consulta = "SELECT * FROM `pacientes` WHERE `edad` = "+edad;
+        ResultSet resultado = DBHelper.ejecutarConsultaConResultado(consulta);
+        listarPacientes(resultado);
+    }
+
+    public void listarPacientesPorHistorial(String historial) {
+        String consulta = "SELECT * FROM `pacientes` WHERE `historial_medico` = '"+historial + "'";
+        ResultSet resultado = DBHelper.ejecutarConsultaConResultado(consulta);
+        listarPacientes(resultado);
+    }
+
     public  void eliminarPaciente(String nombre){
         String consulta = "DELETE FROM `pacientes` WHERE `pacientes`.`nombre` = '"+nombre+"'";
         DBHelper.ejecutarConsulta(consulta);
+    }
+
+    public void edadPromedioPacientes(){
+        String consulta = "SELECT edad FROM `pacientes`";
+        ResultSet resultado = DBHelper.ejecutarConsultaConResultado(consulta);
+        int suma = 0; int i = 0;
+        float promedio;
+        try {
+
+            while (resultado.next()) {
+                suma =  suma + resultado.getInt("edad");
+                i++;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        promedio = (float)suma / i;
+        System.out.println(promedio);
+    }
+    public void pacientesUltimoMes(){
+        int month = LocalDate.now().getMonth().getValue();
+        int year = LocalDate.now().getYear();
+
+        String pepe = "SELECT * FROM `pacientes` WHERE `fecha_ingreso` BETWEEN '"+year+"-"+month+"-"+"01' AND '"+year+"-"+month +"-"+"31' ORDER BY `doctor` ASC";
+
+        ResultSet resultado = DBHelper.ejecutarConsultaConResultado(pepe);
+        listarPacientes(resultado);
     }
 }
